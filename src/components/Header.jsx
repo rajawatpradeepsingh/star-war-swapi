@@ -36,6 +36,7 @@ const Header = () => {
       top="0"
       zIndex="1000"
       width="100%"
+      textAlign='right'
     >
       <Flex alignItems="center" justifyContent="space-between">
         <HStack spacing={{ base: "12px", md: "24px" }} display={{ base: "none", md: "flex" }}>
@@ -81,7 +82,7 @@ const Header = () => {
           </Link>
         </HStack>
         <Spacer />
-        <Box filter={inverted} >
+        <Box filter={inverted} ml={6} >
           <Image
             width={100}
             height={100}
@@ -109,19 +110,18 @@ const Header = () => {
         />
       </Flex>
       <Collapse in={isOpen} animateOpacity>
-        <VStack
-          bg={bg}
-          p={4}
-          display={{ md: "none" }}
-          spacing={4}
-          align="start"
+        <HStack
+        spacing={{ base: "0", md: "24px" }}
+       display={{ base: "flex",md: "none" }}
         >
-          <Button onClick={toggleColorMode} w="full" mb={2}>
+          <MenuItem title="Home" address="/" color={color} mb={2}/>
+          <Spacer />
+          <Button onClick={toggleColorMode}  ml={6} >
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Button>
-          <MenuItem title="Home" address="/" color={color} mb={2}/>
+          <Spacer />
           <MenuItem title="Favorites" address="/about" color={color} mb={2}/>
-        </VStack>
+        </HStack>
       </Collapse>
     </Box>
   );
