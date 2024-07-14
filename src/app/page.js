@@ -12,12 +12,15 @@ export default function Home() {
     const id = character.url.match(/\/(\d+)\//)[1];
     setSelectedCharacter(id);
   };
+  const onClick = () => {
+    setSelectedCharacter(null);
+  };
 
   return (
     <Container maxW="container.xxl" py={4}>
       <Box>
         {selectedCharacter ? (
-          <CharacterDetails id={selectedCharacter} />
+          <CharacterDetails id={selectedCharacter} onClick={onClick}/>
         ) : (
           <CharacterList onCharacterClick={handleCharacterClick}/>
         )}

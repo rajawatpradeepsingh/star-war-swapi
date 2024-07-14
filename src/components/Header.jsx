@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Box,
   Flex,
@@ -7,8 +8,12 @@ import {
   useColorMode,
   useColorModeValue,
   HStack,
+  IconButton,
+  Collapse,
+  VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import MenuItem from "./MenuItem";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,6 +23,7 @@ const Header = () => {
   const bg = useColorModeValue("gray.100", "gray.900");
   const color = useColorModeValue("black", "white");
   const inverted = useColorModeValue("", "invert(1)");
+  const { isOpen, onToggle } = useDisclosure();
 
   return (
     <Box
@@ -31,8 +37,8 @@ const Header = () => {
       zIndex="1000"
       width="100%"
     >
-      <Flex alignItems="center">
-        <HStack spacing="24px">
+      <Flex alignItems="center" justifyContent="space-between">
+        <HStack spacing={{ base: "12px", md: "24px" }} display={{ base: "none", md: "flex" }}>
           <Link href="/">
             <Image
               width={20}
@@ -75,25 +81,48 @@ const Header = () => {
           </Link>
         </HStack>
         <Spacer />
-        <Box filter={inverted}>
+        <Box filter={inverted} >
           <Image
-            width={150}
-            height={200}
+            width={100}
+            height={100}
             src="https://download.logo.wine/logo/Star_Wars/Star_Wars-Logo.wine.png"
             alt=""
+            style={{ width: 'auto', height: 'auto' }}
           />
         </Box>
-
         <Spacer />
-
-        <HStack spacing="24px">
+        <HStack
+          spacing={{ base: "0", md: "24px" }}
+          display={{ base: "none", md: "flex" }}
+        >
           <Button onClick={toggleColorMode}>
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Button>
           <MenuItem title="Home" address="/" color={color} />
           <MenuItem title="Favorites" address="/about" color={color} />
         </HStack>
+        <IconButton
+          aria-label="Toggle menu"
+          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+          display={{ base: "flex", md: "none" }}
+          onClick={onToggle}
+        />
       </Flex>
+      <Collapse in={isOpen} animateOpacity>
+        <VStack
+          bg={bg}
+          p={4}
+          display={{ md: "none" }}
+          spacing={4}
+          align="start"
+        >
+          <Button onClick={toggleColorMode} w="full" mb={2}>
+            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+          </Button>
+          <MenuItem title="Home" address="/" color={color} mb={2}/>
+          <MenuItem title="Favorites" address="/about" color={color} mb={2}/>
+        </VStack>
+      </Collapse>
     </Box>
   );
 };

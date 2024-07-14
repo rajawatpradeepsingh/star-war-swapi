@@ -60,7 +60,7 @@ const CharacterList = ({ onCharacterClick }) => {
     );
 
   return (
-    <Box width="100%">
+    <Box width="100%" p={{ base: 2, md: 4 }}>
       <Grid templateColumns="repeat(auto-fill, minmax(250px, 1fr))" gap={6}>
         {data.results.map((character) => {
           const id = character.url.match(/\/(\d+)\//)[1];
@@ -68,16 +68,18 @@ const CharacterList = ({ onCharacterClick }) => {
 
           return (
             <Card
-              maxW="sm"
+              //maxW="sm"
               key={character.name}
-              borderWidth="1px"
+              borderWidth="2px"
               borderRadius="lg"
+              borderColor='teal'
               overflow="hidden"
               p={4}
               position="relative"
             >
               <CardBody>
-                <Image src={imageUrl} alt={character.name} borderRadius="lg" />
+                <Image src={imageUrl} alt={character.name} borderRadius="lg" width="100%"
+                  objectFit="cover"/>
                 <Stack mt="6" spacing="3" align="center">
                   <Heading
                     size="md"
@@ -90,7 +92,7 @@ const CharacterList = ({ onCharacterClick }) => {
                 </Stack>
               </CardBody>
               <Divider />
-              <CardFooter>
+              <CardFooter alignSelf='center'>
                 <ButtonGroup spacing="2">
                   <Button
                     variant="solid"
@@ -129,7 +131,7 @@ const CharacterList = ({ onCharacterClick }) => {
           );
         })}
       </Grid>
-      <Flex justifyContent="space-around" mt={4}>
+      <Flex justifyContent="space-around" mt={4} px={{ base: 2, md: 4 }}>
         <Button
           leftIcon={<ArrowLeftIcon />}
           onClick={() => setPage(page - 1)}
