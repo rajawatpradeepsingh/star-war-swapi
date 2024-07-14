@@ -23,6 +23,9 @@ const CharacterDetail = ({ id,onClick }) => {
     fetcher
   );
 
+  const bgColor = useColorModeValue("white", "gray.800");
+  const headingColor = useColorModeValue("teal.600", "teal.300");
+
   if (error) return <Text>Error loading character</Text>;
   if (!data)
     return (
@@ -34,8 +37,8 @@ const CharacterDetail = ({ id,onClick }) => {
   const imageUrl = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
 
   return (
-    <Box maxW="lg" mx="auto" borderWidth="1px" borderRadius="lg" overflow="hidden" p={6} mb={6} bg={useColorModeValue("white", "gray.800")} shadow="lg">
-      <Heading size="lg" textAlign="center" mb={6} color={useColorModeValue("teal.600", "teal.300")}>
+    <Box maxW="lg" mx="auto" borderWidth="1px" borderRadius="lg" overflow="hidden" p={6} mb={6} bg={bgColor} shadow="lg">
+      <Heading size="lg" textAlign="center" mb={6} color={headingColor}>
       {data.name.toUpperCase()}
       </Heading>
       <Center mb={6}>
@@ -74,7 +77,7 @@ const CharacterDetail = ({ id,onClick }) => {
         </VStack>
       
 
-      <Heading size="lg" textAlign="center" mb={4} mt={8} color={useColorModeValue("teal.600", "teal.300")}>
+      <Heading size="lg" textAlign="center" mb={4} mt={8} color={headingColor}>
         Movies
       </Heading>
 
@@ -98,7 +101,8 @@ const CharacterDetail = ({ id,onClick }) => {
 
 const FilmItem = ({ filmUrl }) => {
   const { data, error } = useSWR(filmUrl, fetcher);
-
+  const bgList = useColorModeValue("gray.100", "gray.700");
+  
   if (error) return <ListItem color="red.500">Error loading film</ListItem>;
   if (!data) return <ListItem>Loading...</ListItem>;
 
@@ -106,7 +110,7 @@ const FilmItem = ({ filmUrl }) => {
   const filmImageUrl = `https://starwars-visualguide.com/assets/img/films/${filmId}.jpg`;
 
   return (
-    <ListItem borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} bg={useColorModeValue("gray.100", "gray.700")} shadow="md">
+    <ListItem borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} bg={bgList} shadow="md">
        <Stack direction={["column", "row"]} spacing={4} align="center">
         <Image
           src={filmImageUrl}
